@@ -1,0 +1,17 @@
+Cordial saludo Ingenieros,
+
+Adjunto envío el script (monitor_1) que lee el archivo .pi_power_status para
+mostrar en motionEye el voltaje actual de la batería conectada al dispositivo.
+
+El archivo monitor_1 se debe copiar en el directorio en donde se encuentran
+los archivos de configuración usados por motionEye. Este directorio se define
+en el archivo motioneye.conf (opción conf_path) y por defecto es /etc/motioneye
+
+El archivo .pi_power_status es creado por el script pi_power.py en /home/pi
+
+También envío adjunto un ejemplo del archivo .pi_power_status que utilicé
+para hacer pruebas.
+
+Edgar, por favor nos contás si el script funciona o si toca hacer algún ajuste.
+
+Gracias.
