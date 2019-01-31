@@ -15832,7 +15832,8 @@ Marquardt, RAFI, ITT, and others&lt;p&gt;
 <classes>
 <class number="0" name="default" width="0" drill="0">
 </class>
-<class number="1" name="coarse" width="2.54" drill="0">
+<class number="1" name="GND" width="0.254" drill="0">
+<clearance class="1" value="0.127"/>
 </class>
 </classes>
 <parts>
@@ -16024,7 +16025,7 @@ Marquardt, RAFI, ITT, and others&lt;p&gt;
 <busses>
 </busses>
 <nets>
-<net name="GND" class="0">
+<net name="GND" class="1">
 <segment>
 <pinref part="GND4" gate="1" pin="GND"/>
 <pinref part="U1" gate="G$1" pin="AGND"/>
