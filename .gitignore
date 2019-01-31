@@ -1,2 +1,7 @@
 ﻿# Ignora el directorio ImgOS
 ImgOS/
+# Ignora archivos temporales generados por Eagle
+**/*.s#[0-9]*
+**/*.b#[0-9]*
+# Ignora archivos temporales de Proteus
+**/*.pdsprj.*
