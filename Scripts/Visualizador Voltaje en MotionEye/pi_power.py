@@ -196,8 +196,12 @@ gpio_max_voltage = 3.3
 # But in practice the measured range is reduced as Vbat always drops from 4.2 to around 4.05 when the
 # USB cable is removed - so this is the effective range:
 
-battery_min_voltage = 3.75
+battery_min_voltage = 3.00					#Dattel: Original Value: 3.75
 battery_max_voltage = 4.05
+
+#Dattel: Flags to verify low battery for shutting down 
+counter_low_battery = 0
+MAX_COUNTER_LOW_BATTERY = 3
 
 # this is the effective max voltage, prior to the divider, that the ADC can register
 adc_conversion_factor = (gpio_max_voltage / voltage_divider(voltage_divider_r1, voltage_divider_r2, usb_max_voltage)) * usb_max_voltage
@@ -267,10 +271,17 @@ while True:
         msg = ''
         # If battery is too low then shutdown
         if fraction_battery < fraction_battery_min:
-               msg = 'Low Battery - shutdown now'
-               if(args.debug):
-                       print "** LOW BATTERY - shutting down........"
-               # shutdown after writing to the log file
+		        #Dattel: Se incluye una validacion mostrar el mensaje solo despues de
+				#MAX_COUNTER_LOW_BATTERY voltajes menores al minimo consecutivos
+                counter_low_battery += 1
+                if counter_low_battery == MAX_COUNTER_LOW_BATTERY:
+                        msg = 'Low Battery - shutdown now'
+                        if(args.debug):
+                                print "** LOW BATTERY - shutting down........"
+                        # shutdown after writing to the log file
+        #Dattel: Si los voltajes menores al minimo no son consecutivos, el contador es reiniciado
+        else:
+		        counter_low_battery = 0
 
         if(args.debug):
                 print '{0:6d}  {1:.3f}  {2:.3f}  {3:.3f}  {4:s}  {5:s}'.format(elapsed_time, v_bat, v_usb, fraction_battery, power_source, msg)
@@ -288,11 +299,12 @@ while True:
 
         # Low battery shutdown - specify the time delay in seconds
         if fraction_battery < fraction_battery_min:
-                low_battery_shutdown()
+				#Dattel: Se incluye una validacion para que se haga el shutdown solo despues de
+				#MAX_COUNTER_LOW_BATTERY voltajes menores al minimo consecutivos
+				if counter_low_battery == MAX_COUNTER_LOW_BATTERY:
+                			low_battery_shutdown()
         
         # sleep poll_interval seconds between updates
         time.sleep(poll_interval)
 
         elapsed_time += poll_interval
-
-
