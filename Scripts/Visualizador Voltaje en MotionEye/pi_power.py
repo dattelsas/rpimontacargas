@@ -129,9 +129,8 @@ def low_battery_shutdown():
     os.system("sudo logger -t 'pi_power' '** Low Battery - shutting down now **'")
     GPIO.cleanup()
     os.system("sudo shutdown now")
-                
 
-    
+
 
 # MAIN -----------------------
 
@@ -154,7 +153,6 @@ safe_mode = False
 if(args.safe):
         safe_mode = True
 
-        
 # Setup the GPIO pin to use with the use shutdown button
 
 user_shutdown_pin = 26
@@ -199,7 +197,7 @@ gpio_max_voltage = 3.3
 battery_min_voltage = 3.00					#Dattel: Original Value: 3.75
 battery_max_voltage = 4.05
 
-#Dattel: Flags to verify low battery for shutting down 
+#Dattel: Contadores para verificar los estados de bateria baja consecutivos y ejecutar el apagado del sistema 
 counter_low_battery = 0
 MAX_COUNTER_LOW_BATTERY = 3
 
@@ -210,6 +208,8 @@ adc_conversion_factor = (gpio_max_voltage / voltage_divider(voltage_divider_r1, 
 pi_power_status_path = '/home/pi/.pi_power_status'
 pi_power_log_path    = '/home/pi/pi_power_log.csv'
 
+#Dattel: Ruta del archivo donde se almacenan el voltaje de alimentacion del sistema y la fuente correspondiente
+pi_power_status_path2 = '/home/pi/.pi_power_status2'
 
 # initialize an empty log file
 if(args.log):
@@ -226,7 +226,6 @@ power_source_previous = ''
 fraction_battery = 1.0
 
 # Define the minimum battery level at which shutdown is triggered
-
 fraction_battery_min = 0.075
 
 
@@ -241,11 +240,10 @@ while True:
         # read the analog pins on the ACD (range 0-1023) and convert to 0.0-1.0
         frac_v_bat = round(readadc(v_bat_adc_pin,   SPICLK, SPIMOSI, SPIMISO, SPICS)) / 1023.0
         frac_v_usb = round(readadc(v_usb_adc_pin,   SPICLK, SPIMOSI, SPIMISO, SPICS)) / 1023.0
-       
+
         # Calculate the true voltage
         v_bat = frac_v_bat * adc_conversion_factor
         v_usb = frac_v_usb * adc_conversion_factor
-                       
 
         fraction_battery = (v_bat - battery_min_voltage) / (battery_max_voltage - battery_min_voltage)
 
@@ -254,7 +252,7 @@ while True:
         elif fraction_battery < 0.0:
                fraction_battery = 0.0
 
-        
+
         # is the USB cable connected ? Vusb is either 0.0 or around 5.2V       
         if v_usb > 1.0:
                 power_source = 'usb'
@@ -271,7 +269,7 @@ while True:
         msg = ''
         # If battery is too low then shutdown
         if fraction_battery < fraction_battery_min:
-		        #Dattel: Se incluye una validacion mostrar el mensaje solo despues de
+		        #Dattel: Se incluye una validacion para mostrar el mensaje solo despues de
 				#MAX_COUNTER_LOW_BATTERY voltajes menores al minimo consecutivos
                 counter_low_battery += 1
                 if counter_low_battery == MAX_COUNTER_LOW_BATTERY:
@@ -293,9 +291,17 @@ while True:
                 with open(pi_power_log_path, "a") as f:
                         f.write('{0:d},{1:.3f},{2:.3f},{3:.3f},{4:s},{5:s}\n'.format(elapsed_time, v_bat, v_usb, fraction_battery, power_source, msg))
 
-        # Write the .pi_power status file - used by pi_power_leds.py
+        # Write the .pi_power_status file - used by pi_power_leds.py
         with open(pi_power_status_path, "w") as f:
                 f.write('{0:.3f},{1:s}\n'.format(fraction_battery,power_source))
+
+        #Dattel: Se escribe en el archivo .pi_power_status2 el dato del voltaje y la fuente de voltaje correspondiente
+        #para ser visualizado en pantalla
+        with open(pi_power_status_path2, "w") as f:
+                if power_source == 'usb':
+                       f.write('{0:.3f},{1:s}\n'.format(v_usb,power_source))
+                elif power_source == 'battery':
+                       f.write('{0:.3f},{1:s}\n'.format(v_bat,power_source))
 
         # Low battery shutdown - specify the time delay in seconds
         if fraction_battery < fraction_battery_min:
@@ -303,7 +309,7 @@ while True:
 				#MAX_COUNTER_LOW_BATTERY voltajes menores al minimo consecutivos
 				if counter_low_battery == MAX_COUNTER_LOW_BATTERY:
                 			low_battery_shutdown()
-        
+
         # sleep poll_interval seconds between updates
         time.sleep(poll_interval)
 
