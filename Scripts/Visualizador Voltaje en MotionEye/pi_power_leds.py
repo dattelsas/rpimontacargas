@@ -60,8 +60,6 @@ def red_blink_fast():
     leds = ['red']
     update_leds(leds, blink_time_on, blink_time_off)
 
-
-
 def update_leds(current_leds, time_on, time_off):
     global led_pin
     global led_states
@@ -95,10 +93,10 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 # If you are using a common Anode RGB LED use these - most RGB Leds are this type
-led_states = {'off': GPIO.HIGH, 'on': GPIO.LOW}
+#led_states = {'off': GPIO.HIGH, 'on': GPIO.LOW}
 
 # If you are using a common Cathode configuration use this instead
-# led_states = {'off': GPIO.LOW, 'on': GPIO.HIGH}
+led_states = {'off': GPIO.LOW, 'on': GPIO.HIGH}
 
 
 # Specify the RasPi GPIO pins to use - modufy these to suit your configuration
