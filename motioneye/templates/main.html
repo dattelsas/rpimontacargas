@@ -110,7 +110,7 @@
                     <span class="minimize open"></span>
                 </div>
                 <table class="settings">
-		    <tr class="settings-item{% if not enable_reboot %} hidden{% endif %}">
+		    <tr class="settings-item{% if enable_reboot %} hidden{% endif %}">
                         <td class="settings-item-label"><span class="settings-item-label">Power</span></td>
                         <td class="settings-item-value"><div class="button normal-button shut-down-button" id="shutDownButton">Shut Down</div></td>
                         <td><span class="help-mark" title="shuts down the system">?</span></td>
