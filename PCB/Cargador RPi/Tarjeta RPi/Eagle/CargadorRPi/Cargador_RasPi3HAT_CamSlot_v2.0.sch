@@ -17190,16 +17190,6 @@ Source: &lt;a href="http://www.hirose.co.jp/cataloge_hp/ed_ZX_20140804.pdf"&gt;h
 <junction x="30.48" y="149.86"/>
 </segment>
 </net>
-<net name="NC" class="0">
-<segment>
-<pinref part="JP1" gate="A" pin="4"/>
-<wire x1="30.48" y1="147.32" x2="22.86" y2="147.32" width="0.1524" layer="91"/>
-<label x="22.86" y="147.32" size="1.778" layer="95"/>
-<pinref part="J2" gate="G$1" pin="7"/>
-<wire x1="40.64" y1="147.32" x2="30.48" y2="147.32" width="0.1524" layer="91"/>
-<junction x="30.48" y="147.32"/>
-</segment>
-</net>
 <net name="N$1" class="0">
 <segment>
 <pinref part="B1" gate="G$1" pin="1"/>
