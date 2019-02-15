@@ -1,0 +1,4 @@
+#!/bin/bash
+filename='/home/pi/.pi_power_status2'
+line=$(head -n 1 $filename)
+echo Voltaje"="$line
