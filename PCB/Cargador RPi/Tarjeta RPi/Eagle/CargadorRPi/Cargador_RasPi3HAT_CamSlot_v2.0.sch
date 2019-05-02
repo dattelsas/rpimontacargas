@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.3.0">
+<eagle version="9.3.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -17049,6 +17049,14 @@ Source: &lt;a href="http://www.hirose.co.jp/cataloge_hp/ed_ZX_20140804.pdf"&gt;h
 <pinref part="JP6" gate="A" pin="2"/>
 <wire x1="190.5" y1="228.6" x2="182.88" y2="228.6" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="JP5" gate="-1" pin="2"/>
+<wire x1="210.82" y1="215.9" x2="223.52" y2="215.9" width="0.1524" layer="91"/>
+<wire x1="223.52" y1="215.9" x2="223.52" y2="210.82" width="0.1524" layer="91"/>
+<pinref part="JP4" gate="A" pin="1"/>
+<wire x1="223.52" y1="210.82" x2="231.14" y2="210.82" width="0.1524" layer="91"/>
+<label x="193.04" y="215.9" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="VLIPO" class="0">
 <segment>
@@ -17073,6 +17081,13 @@ Source: &lt;a href="http://www.hirose.co.jp/cataloge_hp/ed_ZX_20140804.pdf"&gt;h
 <pinref part="JP5" gate="-2" pin="1"/>
 <pinref part="U$72" gate="G$1" pin="VLIPO"/>
 <wire x1="205.74" y1="205.74" x2="193.04" y2="205.74" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="JP4" gate="A" pin="2"/>
+<wire x1="228.6" y1="205.74" x2="231.14" y2="208.28" width="0.1524" layer="91"/>
+<pinref part="JP5" gate="-2" pin="2"/>
+<wire x1="208.28" y1="205.74" x2="228.6" y2="205.74" width="0.1524" layer="91"/>
+<label x="193.04" y="205.74" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$17" class="0">
@@ -17214,23 +17229,6 @@ Source: &lt;a href="http://www.hirose.co.jp/cataloge_hp/ed_ZX_20140804.pdf"&gt;h
 <pinref part="JP6" gate="A" pin="1"/>
 <wire x1="180.34" y1="228.6" x2="167.64" y2="228.6" width="0.1524" layer="91"/>
 <junction x="167.64" y="228.6"/>
-</segment>
-</net>
-<net name="N$9" class="0">
-<segment>
-<pinref part="JP4" gate="A" pin="2"/>
-<wire x1="228.6" y1="205.74" x2="231.14" y2="208.28" width="0.1524" layer="91"/>
-<pinref part="JP5" gate="-2" pin="2"/>
-<wire x1="208.28" y1="205.74" x2="228.6" y2="205.74" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$10" class="0">
-<segment>
-<pinref part="JP5" gate="-1" pin="2"/>
-<wire x1="210.82" y1="215.9" x2="223.52" y2="215.9" width="0.1524" layer="91"/>
-<wire x1="223.52" y1="215.9" x2="223.52" y2="210.82" width="0.1524" layer="91"/>
-<pinref part="JP4" gate="A" pin="1"/>
-<wire x1="223.52" y1="210.82" x2="231.14" y2="210.82" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
